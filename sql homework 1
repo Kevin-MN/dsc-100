@@ -1,0 +1,137 @@
+1.1
+
+CREATE TABLE Artists (
+	ArtistId INTEGER PRIMARY KEY,
+	Name TEXT);
+	
+1.2
+
+INSERT INTO Artists
+VALUES 
+
+	(1, 'John Lennon'),
+	(2, 'Roger Waters'),
+	(3, 'Bob Marley'),
+	(4, 'Eric Clapton' ),
+	(5, 'B.B. King' ),
+	(6, 'Buddy Guy'),
+	(7, 'Jimi Hendrix');
+	
+	
+1.3
+
+select * from Artists;
+
+1.4
+
+select * from Artists where Name like 'B%';
+
+1.5
+
+select Name from Artists where ArtistId = 2;
+
+1.6
+
+--1) INSERT INTO ARTISTS VALUES ('-1','Micheal Jackson');
+-- The tuple was succesfully inserted into the table, negative numbers are within the constraints
+-- of the INTEGER data type, although the number was contained in qutation marks it seems sqlite
+-- is able to still identify is as a integer and stores it as a integer
+
+
+--2) INSERT INTO ARTISTS VALUES (2, 'Roger Waters');
+-- We get this error, Runtime error: UNIQUE constraint failed: Artists.ArtistID (19)
+-- This makes sense that we will not be able to insert this tuple because there already exists
+-- a tuple with the unique primary key 2 and there cannot be duplicates of a primary key
+
+
+
+--3) INSERT INTO ARTISTS VALUES (NULL,'Roger Waters');
+-- It appears sqlite allows this operation to insert the tuple succesfully
+-- but it automatially inserts the null as the next available unique integer id (primary key)
+-- because the tuple was stores with the ArtistID of 8, so the system automatically assigns a 
+-- INTEGER primary key according to the data constraints if a null is entered for the primary key
+
+
+
+
+2 
+
+CREATE TABLE Albums(
+	AlbumId INTEGER PRIMARY KEY,
+	ArtistId INTEGER,
+	Title VARCHAR(50),
+	Released DATE,
+	FOREIGN KEY(ArtistId) REFERENCES Artists(ArtistId)
+	);
+
+PRAGMA foreign_keys = ON
+
+
+
+3
+
+INSERT INTO Albums 
+VALUES 
+	(1, 1, 'Violet', '2022-10-04'),
+	(2, 2, 'Miku', '2019-10-04'),
+	(3, 3, 'Rei', '2001-10-04'),
+	(4, 4, 'Asuka', '1995-10-04'),
+	(5, 5, 'Ushio', '1987-10-04'),
+	(6, 6, 'Nazuna', '2001-02-06'),
+	(7, 7, 'Jeanne', '2008-10-04'),
+	(8, 3, 'Kate', '1967-10-04'),
+	(9, 5, 'Mio', '1945-10-04'),
+	(10, 7, 'Lucy', '2000-10-04');
+	
+4
+
+
+.header  off
+.mode csv
+select * from Albums;
+
+
+.header  on
+.mode csv
+select * from Albums;
+
+
+.header  off
+.mode list
+select * from Albums;
+
+
+.header  on
+.mode list
+select * from Albums;
+
+
+.header  off
+.mode column 
+.width 15 15 15 15
+select * from Albums;
+
+
+.header  on
+.mode column
+.width 15 15 15 15
+select * from Albums;
+
+
+5
+
+select Name,Title from Albums,Artists where Albums.ArtistId = Artists.ArtistId ORDER BY Name;
+
+6
+select DISTINCT Name from Albums,Artists where Albums.ArtistId = Artists.ArtistId AND Released >= date('2001-01-01') ORDER BY Name;
+
+7
+
+
+select Name, COUNT(Name) from Albums,Artists where Albums.ArtistId = Artists.ArtistId group by Name ORDER BY Name;
+
+
+
+
+
+	

@@ -1,0 +1,1 @@
+select Name from Artists where ArtistId = 2;

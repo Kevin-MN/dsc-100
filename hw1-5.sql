@@ -1,0 +1,1 @@
+select Name,Title from Albums JOIN Artists ON Albums.ArtistId = Artists.ArtistId ORDER BY Name;

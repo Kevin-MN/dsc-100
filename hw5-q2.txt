@@ -1,0 +1,11 @@
+T1(p) = Rename[a(p)] person_living
+T2(name) = Rename(b(name)) male
+
+T3(name,p1,p2) = parent_child(p1,p2) ANTIJOIN[p1 = d.name AND p2 = a.p] female(name)
+
+
+T4(p,name) = T1(p) Join[a.p = b.name] T2(name)
+
+T5(name,name,p,p1,p2) = T4(p,name) NATRUALJOIN T3(name,p1,p2)
+
+T6(p) = Project[a.p] T5(name,name,p,p1,p2)

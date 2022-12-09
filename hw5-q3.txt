@@ -1,0 +1,49 @@
+1.
+
+select  
+    Supplier.sid
+from 
+    Supply join Part ON Supply.pid = Part.pid
+where 
+    Part.color = 'red' or Part.color = 'blue';
+
+
+2.
+select  
+    Supply.pid
+from 
+    Supply 
+where 
+    cost < 100;
+
+
+3.
+select  
+    Supply.sid
+from 
+    Supply join Part ON Supply.pid = Part.pid
+    join Supplier on Supply.sid = Supplier.sid
+where 
+    Part.color = 'red' or Supplier.city = 'San Diego';
+
+4.
+select  
+    s1.sid
+from 
+    Supply as s1,Supply as s2, Part as p1, Part as p2
+where   
+    s1.pid = p1.pid AND s2.pid = p2.pid AND s1.sid = s2.sid
+    AND p1.color = 'red' AND p2.color = 'green'; 
+    
+
+
+
+5.
+
+select 
+    s1.sid, s2.sid
+from 
+    Supply as s1, Supply as s2
+where
+    s1.cost > s2.cost;
+

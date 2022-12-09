@@ -1,0 +1,1 @@
+select DISTINCT Name from Albums join Artists on Albums.ArtistId = Artists.ArtistId WHERE Albums.Released >= date('2001-01-01') ORDER BY Name;

@@ -1,0 +1,13 @@
+select  
+    p1,max(y) as z
+from (
+select
+     parent_child.p1, count(*) as y
+from 
+    person_living JOIN parent_child ON person_living.x = parent_child.p1
+    JOIN (select p1 as p3, p2 as p4 from parent_child) as parent_child2 ON parent_child.p2 = parent_child2.p3 
+group by 
+    parent_child.p1,parent_child2.p3
+)
+group by 
+    p1;

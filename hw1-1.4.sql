@@ -1,0 +1,1 @@
+select * from Artists where Name like 'B%';
